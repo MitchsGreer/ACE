@@ -1,0 +1,59 @@
+[![DOI](https://zenodo.org/badge/56720539.svg)](https://zenodo.org/badge/latestdoi/56720539)
+
+# Accelerated Computational Engine (ACE)
+
+ACE is a generic framework for creating GPU-accelerated applications.
+
+## **Dependencies for ACE Locally**
+
+1. **qt**:
+   [qt homepage](https://www.qt.io/)
+2. **g++**: c++ compiler
+3. **mpic++**: c++ wrapper compiler
+4. **opencl-headers**:
+   [opencl help page](https://askubuntu.com/questions/850281/opencl-on-ubuntu-16-04-intel-sandy-bridge-cpu)
+
+## **To build ACE**
+```bash
+git clone  https://github.com/SystemsGenetics/ACE.git
+cd ACE
+cd build
+qmake ../src/ACE.pro PREFIX=$HOME/software
+make qmake_all
+make
+make qmake_all
+```
+### **To install ACE globally (requires root)**
+
+```bash
+make install
+```
+
+### **To build and Install ACE locally**
+
+```bash
+cd ACE
+cd build
+qmake ../src/ACE.pro PREFIX=$HOME/software
+make qmake_all
+make
+make qmake_all
+make install
+
+# append these lines to ~/.bashrc
+export PATH=$PATH:$HOME/software/bin
+export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$HOME/software/include
+export LIBRARY_PATH=$LIBRARY_PATH:$HOME/software/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/software/lib
+```
+
+## **Usage**
+For an example use of ACE, run the `aceex` or `qaceex` application in `ACE/build/example/cli` or in `ACE/build/example/gui` respectively. 
+
+## **Troubleshooting**
+### **cannot find -lmpi_cxx**
+If you receive the error `/usr/bin/ld: cannot find -lmpi_cxx` try adding the MPICXX=no flag to the qmake command:
+```bash
+cd build
+qmake ../src/ACE.pro -spec linux-g++ PREFIX=$HOME/ACE-3.0.1 MPICXX=no
+```
